@@ -121,6 +121,9 @@ MALLOC_SVELTE := true
 # SELinux
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
+# SELinux
+BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+
 # Sensors
 TARGET_USES_SENSORS_WRAPPER := false
 
