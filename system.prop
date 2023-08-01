@@ -2,41 +2,14 @@
 # system.prop for kanas
 #
 
-# Audio
-ro.config.media_vol_steps=25
-ro.config.vc_call_vol_steps=15
-
-# Camera
-camera.disable_zsl_mode=1
-
 # HW
 ro.product.hardware=KANAS3G_VE_V1.0.0
 
-# MultiTouch support
-ro.product.multi_touch_enabled=true
-ro.product.max_num_touch=2
-
 # Graphics
-# Display density is actually 207 ppi, square pixels
 ro.sf.lcd_density=240
-debug.hwui.use_buffer_age=false
-ro.opengles.version=196609
-ro.bq.gpu_to_cpu_unsupported=1
-ro.zygote.disable_gl_preload=true
-debug.hwui.render_dirty_regions=false
-
-persist.media.treble_omx=false
 
 persist.ttydev=ttyVUART0
 sf.metadata_use_plat_sw_codecs=1
-
-# DRM
-drm.service.enabled=1
-
-debug.hwc.force_gpu=1
-
-# Strict Mode
-persist.sys.strictmode.disable=1
 
 persist.modem.w.enable=1
 ro.modem.w.dev=/dev/cpw
@@ -81,14 +54,11 @@ ro.telephony.ril.config=setPrefNwTypeOnUnsolConnected,sim2gsmonly
 ro.telephony.ril.socket_name=rild,rild1,rild2
 ro.ril.telephony.mqanelements=6
 
-# Avoid some buffer dequeue errors
-ro.sf.disable_triple_buffer=0
-
 # Use bfqio cgroups
 persist.sys.io.scheduler=bfq
 
-# UI thread scheduling
-sys.use_fifo_ui=1
-
-# EGL blobs crash on screen off
-ro.egl.destroy_after_detach=true
+ro.radio.modemtype=w
+rild.libpath=/system/vendor/lib/libsecril-shim.so
+ro.com.android.mobiledata=false
+ro.com.google.locationfeatures=1
+ro.com.google.networklocation=1
