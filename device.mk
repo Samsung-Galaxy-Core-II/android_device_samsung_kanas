@@ -13,6 +13,10 @@ $(call inherit-product, device/samsung/scx35-common/common.mk)
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+# Ramdisk
+PRODUCT_PACKAGES += \
+	fstab.sc8830
+
 # Audio
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/audio/audio_hw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_hw.xml \
@@ -49,16 +53,39 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	android.hardware.power@1.0-service.kanas
 
+# Sensors
+PRODUCT_PACKAGES += \
+	sensors.sc8830
+
+# Graphics
+PRODUCT_PACKAGES += \
+	sprd_gsp.sc8830 \
+	hwcomposer.sc8830
+
+# Codecs
+PRODUCT_PACKAGES += \
+	libstagefright_sprd_soft_mpeg4dec \
+	libstagefright_sprd_soft_h264dec
+
+# Camera
+PRODUCT_PACKAGES += \
+	camera.sc8830 \
+	camera2.sc8830
+
 # Properties 
 TARGET_SYSTEM_PROP += device/samsung/kanas/system.prop
 
-# Ramdisk
-PRODUCT_PACKAGES += \
-	fstab.sc8830
+RAMDISK_FILES := \
+	device/samsung/kanas/rootdir/ueventd.sc8830.rc \
+	device/samsung/kanas/rootdir/init.board.rc \
+	device/samsung/kanas/rootdir/init.sc8830.rc
 
-# Init Misc
+INIT_FILES := \
+	device/samsung/kanas/system/etc/init/rild_scx15.rc \
+	device/samsung/kanas/system/etc/init/kill_phone.rc \
+	device/samsung/kanas/system/etc/init/refnotify.rc \
+	device/samsung/kanas/system/etc/init/wpa_supplicant.rc
+	
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/system/etc/init/rild_scx15.rc:$(TARGET_COPY_OUT_VENDOR)/etc/rild_scx15.rc \
-	$(LOCAL_PATH)/system/etc/init/kill_phone.rc:$(TARGET_COPY_OUT_VENDOR)/etc/kill_phone.rc \
-	$(LOCAL_PATH)/system/etc/init/refnotify.rc:$(TARGET_COPY_OUT_VENDOR)/etc/refnotify.rc \
-	$(LOCAL_PATH)/system/etc/init/wpa_supplicant.rc:$(TARGET_COPY_OUT_VENDOR)/etc/wpa_supplicant.rc
+	$(foreach f,$(RAMDISK_FILES),$(f):root/$(notdir $(f))) \
+	$(foreach f,$(INIT_FILES),$(f):system/vendor/etc/init/$(notdir $(f)))
